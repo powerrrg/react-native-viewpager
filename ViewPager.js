@@ -301,46 +301,53 @@ var ViewPager = React.createClass({
     });
 
     return (
-      <View style={{flex: 1}}
-        onLayout={(event) => {
-            // console.log('ViewPager.onLayout()');
-            var viewWidth = event.nativeEvent.layout.width;
-            if (!viewWidth || this.state.viewWidth === viewWidth) {
-              return;
-            }
-            this.setState({
-              currentPage: this.state.currentPage,
-              viewWidth: viewWidth,
-            });
-          }}
-        >
+      <View style={styles.containerCu}>
+        <View style={{flex: 1}}
+          onLayout={(event) => {
+              // console.log('ViewPager.onLayout()');
+              var viewWidth = event.nativeEvent.layout.width;
+              if (!viewWidth || this.state.viewWidth === viewWidth) {
+                return;
+              }
+              this.setState({
+                currentPage: this.state.currentPage,
+                viewWidth: viewWidth,
+              });
+            }}
+          >
 
-        <Animated.View style={[sceneContainerStyle, {transform: [{translateX}]}]}
-          {...this._panResponder.panHandlers}>
-          {bodyComponents}
-        </Animated.View>
+          <Animated.View style={[sceneContainerStyle, {transform: [{translateX}]}]}
+            {...this._panResponder.panHandlers}>
+            {bodyComponents}
+          </Animated.View>
 
-        {this.renderPageIndicator({goToPage: this.goToPage,
-                            pageCount: pageIDs.length,
-                            activePage: this.state.currentPage,
-                            scrollValue: this.state.scrollValue,
-                            scrollOffset: this.childIndex,
-                          })}
+        </View>
+          {this.renderPageIndicator({goToPage: this.goToPage,
+              pageCount: pageIDs.length,
+              activePage: this.state.currentPage,
+              scrollValue: this.state.scrollValue,
+              scrollOffset: this.childIndex,
+          })}
       </View>
     );
   }
 });
 
 var styles = StyleSheet.create({
-  indicators: {
-    flex: 1,
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 10,
-    left: 0,
-    right: 0,
-    backgroundColor: 'transparent',
-  },
+    containerCu: {
+      flex: 1,
+        position: 'relative',
+        paddingBottom: 20
+    },
+    indicators: {
+      flex: 1,
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'transparent',
+    },
 });
 
 module.exports = ViewPager;
